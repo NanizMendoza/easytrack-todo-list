@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Edit text !-->
+    <style name="EditTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_sm</item>
+        <item name="android:paddingTop">@dimen/padding_md</item>
+        <item name="android:paddingLeft">@dimen/padding_sm</item>
+        <item name="android:paddingRight">@dimen/padding_sm</item>
+        <item name="android:paddingBottom">@dimen/padding_md</item>
+        <item name="android:drawablePadding">@dimen/padding_sm</item>
+        <item name="android:background">@drawable/custom_edittext</item>
+    </style>
+
+    <!-- Button !-->
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_md</item>
+        <item name="android:background">@drawable/custom_button</item>
+    </style>
+
+    <!-- TextView !-->
+    <style name="TextViewTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/teal_blue</item>
+        <item name="android:textSize">@dimen/text_size_lg</item>
+    </style>
+
+    <style name="TextViewSubtitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_md</item>
+    </style>
+
+    <style name="TextViewBodyStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_sm</item>
+    </style>
+
+    <style name="SlidingDialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+</resources>

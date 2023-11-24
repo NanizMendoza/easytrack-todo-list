@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">TODO List</string>
+
+    <!-- Login !-->
+    <string name="login_password">Contraseña</string>
+    <string name="login_button">Iniciar sesión</string>
+    <string name="login_username">Nombre de usuario</string>
+    <string name="login_error">Ha ocurrido un error al iniciar sesión</string>
+    <string name="login_validate_username">Por favor, ingrese su nombre</string>
+    <string name="login_validate_password">Por favor, ingrese su contraseña</string>
+
+    <!-- Logout !-->
+    <string name="logout_item">Cerrar sesión</string>
+
+    <!-- Main !-->
+    <string name="nombre">Nombre:</string>
+    <string name="nav_title">¡Hola!</string>
+    <string name="btn_add_task">Agregar</string>
+    <string name="welcome">¡Bienvenido!</string>
+    <string name="btn_update_task">Editar</string>
+    <string name="add_task">Agregar tarea</string>
+    <string name="update_task">Editar tarea</string>
+    <string name="close_modal">Cerrar modal</string>
+    <string name="btn_delete_task">Eliminar</string>
+    <string name="description">Descripción:</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="task_name_error">Por favor, agregue un nombre a la tarea</string>
+    <string name="update_task_error">Ha ocurrido un error al editar la tarea</string>
+    <string name="add_task_error">Ha ocurrido un error al agregar nueva tarea</string>
+    <string name="delete_task_error">Ha ocurrido un error al eliminar la tarea</string>
+    <string name="add_task_success">Tarea agregada con éxito.</string>
+    <string name="update_task_success">Tarea editada con éxito.</string>
+    <string name="delete_task_success">Tarea eliminada con éxito.</string>
+
+</resources>
