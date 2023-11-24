@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             loginViewModel.onLogin(username, password, new OnLoginCallback() {
                 @Override
                 public void onSuccessLogin() {
+                    //Si el login fue exitoso, muestra la pantalla principal
                     Intent intentToMain = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intentToMain);
                     finish();

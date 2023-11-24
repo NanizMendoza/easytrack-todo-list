@@ -60,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
+        //Inicializa lista de tareas
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(Objects.requireNonNull(AppCompatResources.getDrawable(this, R.drawable.custom_list_divider)));
         binding.appBarMain.listTask.rvListTask.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
         binding.appBarMain.listTask.rvListTask.addItemDecoration(itemDecoration);
 
+        //Inicializa botón flotante que despliega diálogo inferior para crear tarea
         binding.appBarMain.fabAddTask.setOnClickListener(v -> {
             selectedTask = null;
             showBottomSheetDialog();
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeNavigation() {
+        //Inicializa actionBar customizada
         setSupportActionBar(binding.appBarMain.toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -79,19 +82,21 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        //Inicializa barra de navegación lateral
         drawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
         binding.navView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.logout) {
-                mainViewModel.onLogout();
+                mainViewModel.onLogout(); //Llamada a función en viewModel para cerrar sesión
             }
             return true;
         });
     }
 
     private void initializeBottomSheetDialog() {
+        //Inicializa diálogo inferior
         bottomSheetBinding = BottomSheetTaskBinding.inflate(getLayoutInflater());
         bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetTheme);
         bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
@@ -130,11 +135,13 @@ public class MainActivity extends AppCompatActivity {
         });
         mainViewModel.getIsLogged().observe(this, isLogged -> {
             if (!isLogged) {
+                //Si el usuario no ha iniciado sesión, muestra pantalla de Login
                 Intent intentToLogin = new Intent(MainActivity.this, LoginActivity.class);
                 intentToLogin.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentToLogin);
             }
             else {
+                //Si hay sesión iniciada, muestra mensaje de bienvenida y nombre de usuario en barra lateral
                 mainViewModel.getUsername().observe(this, username -> {
                     if(username != null && !username.equals("")) {
                         NavHeaderBinding navViewHeaderBinding = NavHeaderBinding.bind(binding.navView.getHeaderView(0));
@@ -147,17 +154,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showWelcomeDialog(String username) {
+        //Crea diálogo de bienvenida
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialogWelcomeBinding alertBinding = AlertDialogWelcomeBinding.inflate(getLayoutInflater());
         alertBinding.tvAlertUsername.setText(username);
         builder.setView(alertBinding.getRoot());
 
+        //Agrega animación a diálogo
         final AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null)
             dialog.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
         dialog.show();
 
-        //Cerrar modal después de (Constants.DELAY_WELCOME_MODAL) segundos
+        //Cierra diálogo después de (Constants.DELAY_WELCOME_MODAL) segundos
         new Handler().postDelayed(dialog::dismiss, Constants.DELAY_WELCOME_MODAL);
     }
 
@@ -165,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         taskAdapter = new TaskAdapter(taskList, new OnTaskListener() {
             @Override
             public void onTaskClickListener(int position) {
+                //Muestra diálogo inferior al seleccionar una tarea de la lista
                 selectedTask = taskList.get(position);
                 selectedTaskPosition = position;
                 showBottomSheetDialog();
@@ -172,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTaskCheckboxClickListener(int position, boolean isChecked) {
+                //Actualiza el status completado de tarea al marcar/desmarcar checkbox en lista
                 selectedTask = taskList.get(position);
                 selectedTaskPosition = position;
                 selectedTask.setCompleted(isChecked);
@@ -183,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.listTask.rvListTask.setVisibility(View.VISIBLE);
     }
 
+    //Llamada a función en viewModel que agrega/actualiza/elimina tareas
     private void callTaskAction() {
         mainViewModel.callTaskAction(selectedAction, selectedTask, new OnTaskResponseCallback() {
             @Override
@@ -191,17 +203,17 @@ public class MainActivity extends AppCompatActivity {
                 switch (selectedAction) {
                     case Constants.ACTION_INSERT_TASK:
                         taskList.add(task);
-                        taskAdapter.notifyItemInserted(taskList.size());
+                        taskAdapter.notifyItemInserted(taskList.size()); //Notifica a la lista que se agregó un registro
                         successMsg = getResources().getString(R.string.add_task_success);
                         break;
                     case Constants.ACTION_UPDATE_TASK:
-                        taskAdapter.notifyItemChanged(selectedTaskPosition);
+                        taskAdapter.notifyItemChanged(selectedTaskPosition); //Notifica a la lista que se actualizó un registro
                         successMsg = getResources().getString(R.string.update_task_success);
                         break;
                     case Constants.ACTION_DELETE_TASK:
                         taskList.remove(selectedTaskPosition);
-                        taskAdapter.notifyItemRemoved(selectedTaskPosition);
-                        taskAdapter.notifyItemRangeChanged(selectedTaskPosition, taskList.size());
+                        taskAdapter.notifyItemRemoved(selectedTaskPosition); //Notifica a la lista que se agregó un registro
+                        taskAdapter.notifyItemRangeChanged(selectedTaskPosition, taskList.size()); //Actualiza posición de items en lista
                         successMsg = getResources().getString(R.string.delete_task_success);
                         break;
                 }
@@ -248,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean validateTaskName() {
+        //Valida que se haya ingresado un nombre al agregar o editar tarea
         if(bottomSheetBinding.etTaskName.getText().toString().trim().equals("")) {
             Methods.createToast(getApplicationContext(), getResources().getString(R.string.task_name_error));
             return false;
