@@ -9,6 +9,12 @@ La aplicación permite:
 - Editar nombre y descripción de tarea
 - Marcar una tarea como realizada
 - Eliminar tareas
+
+Para esta versión:
+
+* Es posible iniciar sesión con cualquier nombre de usuario y contraseña.
+* Las tareas se actualizan a completadas en API al seleccionar el checkbox de la lista.
+* La tarea se elimina automáticamente al dar click en el botón de eliminar en el diálogo inferior.
   
 ## ¿Cómo correr la app?
 
@@ -25,8 +31,6 @@ Para correr la aplicación es necesario contar con Android Studio instalado (htt
 - Seleccionar un dispositivo o emulador superior a la `API 28` (minSdk)
 - Seleccionar `Run -> Run 'app'` (o `Debug 'app'`)
 - Ahora puedes probar la app!
-
-** Para esta versión, es posible iniciar sesión con cualquier nombre de usuario y contraseña
 
 ## Tecnologías usadas
 
